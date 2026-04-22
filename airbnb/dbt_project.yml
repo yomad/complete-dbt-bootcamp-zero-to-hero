@@ -33,8 +33,19 @@ on-run-start:
 
 models:
   airbnb:
+    +materialized: view
+    dim:
+      +materialized: table
+    src:
+     +materialized: ephemeral
 
-
+models:
+  airbnb:
+    +materialized: view
+    dim:
+      +materialized: table
+    src:
+      +materialized: ephemeral
 
 #    +grants:
 #      select: ["transform", "reporter"]
