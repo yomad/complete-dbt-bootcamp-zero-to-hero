@@ -1,22 +1,13 @@
-{{
-  config(
-    materialized = 'view'
-    )
-}} 
-WITH src_hosts AS (
-    SELECT
+with src_hosts as (
+    select
         *
-    FROM
-        {{ ref('src_hosts') }}
+    -- from AIRBNB.RAW.RAW_HOSTS
+    from {{source('airbnb','hosts')}}
 )
-SELECT
-    host_id,
-    NVL(
-        host_name,
-        'Anonymous'
-    ) AS host_name,
-    is_superhost,
-    created_at,
-    updated_at
-FROM
-    src_hosts
+select
+    ID host_id,
+    NVL(NAME, 'Anonymous') as host_name,
+    IS_SUPERHOST,
+    CREATED_AT,
+    UPDATED_AT
+from src_hosts
